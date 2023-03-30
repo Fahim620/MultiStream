@@ -1,0 +1,45 @@
+:root {
+  --original-width: 20rem;
+  --extended-width: 30rem;
+  --chat-width: var(--original-width);
+  --costream-height: calc(var(--chat-width) * (9 / 16));
+  --offset: 0px;
+}
+
+.overlay {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  z-index: 999;
+  padding: 0.2rem;
+  display: block;
+}
+
+.overlay:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+#stream-overlay {
+  position: absolute;
+  top: 0.53%;
+  right: calc(var(--chat-width) + 0.4375%);
+}
+
+#collapse {
+  position: absolute;
+  top: calc(0.5rem + var(--offset));
+  right: calc(var(--chat-width) - 2.6rem);
+}
+
+#switch-chat {
+  position: absolute;
+  top: calc(0.5rem + var(--offset));
+  right: 3.3rem;
+}
+
+.tooltip {
+  --bs-tooltip-bg: white;
+  --bs-tooltip-opacity: 100%;
+  font-weight: bold;
+}
