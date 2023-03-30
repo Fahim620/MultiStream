@@ -1,1 +1,2 @@
 # multistream
+squadstream sucks!
