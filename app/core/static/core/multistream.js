@@ -60,27 +60,43 @@ function switchStacked() {
 }
 
 
-function switchCostream() {
+function switchCostream(stream=secondStream) {
     layout = mode[2]
     document.querySelector(':root').style.setProperty("--chat-width", "var(--extended-width)")
     document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
-    document.getElementById("chat").insertBefore(document.getElementById(secondStream), document.getElementById("chat").firstChild)
-    document.getElementById(secondStream).style.width = "100%"
-    document.getElementById(secondStream).style.height = "var(--costream-height)"
-    document.getElementById(secondStream).classList.remove("flex-grow-1")
+    document.getElementById("costream-placeholder").style.display = "inline"
+    document.getElementById("costream-placeholder").style.height = "var(--costream-height)"
+
+    document.getElementById(stream).style.width = "var(--chat-width)"
+    document.getElementById(stream).style.height = "var(--costream-height)"
+    document.getElementById(stream).classList.remove("flex-grow-1")
+    document.getElementById(stream).style.position = "absolute"
+    document.getElementById(stream).style.top = "0%"
+    document.getElementById(stream).style.right = "0%"
+
+    // document.getElementById("chat").insertBefore(document.getElementById(secondStream), document.getElementById("chat").firstChild)
+    // document.getElementById(secondStream).style.width = "100%"
+    // document.getElementById(secondStream).style.height = "var(--costream-height)"
+    // document.getElementById(secondStream).classList.remove("flex-grow-1")
     
 }
 
 
-function undoCostream() {
+function undoCostream(stream=secondStream) {
     document.querySelector(':root').style.setProperty("--chat-width", "var(--original-width)")
-    if (swapped) {
-        document.getElementById("stream-content").insertBefore(document.getElementById(secondStream), document.getElementById("stream-content").firstChild)
-    } else {
-        document.getElementById("stream-content").appendChild(document.getElementById(secondStream))
-    }
-    document.getElementById(secondStream).style.height = "auto"
-    document.getElementById(secondStream).classList.add("flex-grow-1")
+    // if (swapped) {
+    //     document.getElementById("stream-content").insertBefore(document.getElementById(secondStream), document.getElementById("stream-content").firstChild)
+    // } else {
+    //     document.getElementById("stream-content").appendChild(document.getElementById(secondStream))
+    // }
+    // document.getElementById(secondStream).style.height = "auto"
+    // document.getElementById(secondStream).classList.add("flex-grow-1")
+
+    document.getElementById("costream-placeholder").style.display = "none"
+    document.getElementById(stream).style.height = "auto"
+    document.getElementById(stream).classList.add("flex-grow-1")
+    document.getElementById(stream).style.position = "static"
+
     document.querySelector(':root').style.setProperty("--offset", "0px")
 }
 
@@ -93,6 +109,7 @@ function toggleSecondStream() {
         document.getElementById("toggle-icon").classList.add("fa-video-slash")
 
         if (layout === mode[2]) {
+            document.getElementById("costream-placeholder").style.display = "none"
             document.querySelector(':root').style.setProperty("--offset", "0px")
         }
         
@@ -103,6 +120,7 @@ function toggleSecondStream() {
         document.getElementById("toggle-icon").classList.add("fa-video")
 
         if (layout === mode[2]) {
+            document.getElementById("costream-placeholder").style.display = "inline"
             document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
         }
     }
@@ -122,12 +140,7 @@ function swap() {
             document.getElementById("stream-content").classList.add("flex-column-reverse")
         } else if (layout === mode[2]) {
             undoCostream()
-            document.getElementById("chat").insertBefore(document.getElementById(mainStream), document.getElementById("chat").firstChild)
-            document.querySelector(':root').style.setProperty("--chat-width", "var(--extended-width)")
-            document.getElementById(mainStream).style.width = "100%"
-            document.getElementById(mainStream).style.height = "var(--costream-height)"
-            document.getElementById(mainStream).classList.remove("flex-grow-1")
-            document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
+            switchCostream(mainStream)
         }
         swapped = true
     } else {
@@ -137,12 +150,7 @@ function swap() {
             document.getElementById("stream-content").classList.remove("flex-column-reverse")
         } else if (layout === mode[2]) {
             undoCostream()
-            document.getElementById("chat").insertBefore(document.getElementById(mainStream), document.getElementById("chat").firstChild)
-            document.querySelector(':root').style.setProperty("--chat-width", "var(--extended-width)")
-            document.getElementById(mainStream).style.width = "100%"
-            document.getElementById(mainStream).style.height = "var(--costream-height)"
-            document.getElementById(mainStream).classList.remove("flex-grow-1")
-            document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
+            switchCostream(mainStream)
         }
         swapped = false
     }

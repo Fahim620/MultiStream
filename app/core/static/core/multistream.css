@@ -17,7 +17,7 @@
 }
 
 .overlay:hover {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(0,0,0,0.2);
 }
 
 #stream-overlay {
@@ -32,11 +32,20 @@
   right: calc(var(--chat-width) - 2.6rem);
 }
 
+#collapse:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
 #switch-chat {
   position: absolute;
   top: calc(0.5rem + var(--offset));
   right: 3.3rem;
 }
+
+#switch-chat:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
 
 .tooltip {
   --bs-tooltip-bg: white;
