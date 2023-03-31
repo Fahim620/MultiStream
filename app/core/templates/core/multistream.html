@@ -1,0 +1,79 @@
+{% extends "./default.html" %}
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="{% static 'core/multistream.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div id="body">
+  <button id="collapse" class="overlay btn btn-secondary" onclick="collapse()" type="button" role="button"
+  data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="tooltip" data-bs-title="Collapse">
+    <i class="fa-sharp fas fa-arrow-right-from-line fa-lg"></i>
+  </button>
+
+  <div id="switch-chat-wrapper">
+    <button id="switch-chat" class="btn btn-secondary" onclick="switchChat()" type="button" role="button"
+    data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="tooltip" data-bs-title="Switch Chat">
+      <i class="fa-sharp fa-solid fa-repeat"></i> 
+    </button>
+    <span id="current-chat"></span>
+  </div>
+  
+  
+  <div id="stream-overlay">
+    <button id="expand" class="overlay btn btn-secondary" onclick="expand()" type="button" role="button"
+    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip" data-bs-title="Expand"
+    style="display: none;">
+      <i class="fa-sharp fas fa-arrow-left-from-line fa-lg"></i>
+    </button>
+    <div id="dropdown" class="dropstart">
+      <button id="settings" class="overlay btn btn-secondary" type="button" role="button" data-bs-toggle="dropdown">
+        <i class="fa-sharp fa-solid fa-wrench"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <li><span class="dropdown-header">Layouts</span></li>
+        <li><button class="dropdown-item" type="button" onclick="switchSideBySide()">Side-by-Side</button></li>
+        <li><button class="dropdown-item" type="button" onclick="switchStacked()">Stacked</button></li>
+        <li><button class="dropdown-item" type="button" onclick="switchCostream()">Co-stream</button></li>
+      </ul>
+    </div>
+
+    <button id="fullscreen" class="overlay btn btn-secondary" onclick="toggleFullScreen()" type="button" role="button"
+    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip" data-bs-title="Fullscreen">
+      <i id="fullscreen-icon" class="fa-sharp fa-solid fa-expand"></i>
+    </button>
+
+    <button id="toggle-second-screen" class="overlay btn btn-secondary" onclick="toggleSecondStream()" type="button" role="button"
+    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip" data-bs-title="Toggle Second Stream">
+      <i id="toggle-icon" class="fa-sharp fa-solid fa-video"></i>
+    </button>
+
+    <button id="swap-streams" class="overlay btn btn-secondary" onclick="swapStreams()" type="button" role="button"
+    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip" data-bs-title="Swap Streams">
+      <i class="fa-sharp fa-solid fa-right-left"></i>
+    </button>
+  </div>
+
+  <div id="main">
+    <iframe id="stream-1"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+    <iframe id="stream-2"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+    <iframe id="chat-1" class="chat"
+      frameborder="0">
+    </iframe>
+    <iframe id="chat-2" class="chat"
+      frameborder="0">
+    </iframe>
+  </div>
+</div>
+<script>
+  init("{{ channel1 }}", "{{ channel2 }}")
+</script>
+{% endblock %}

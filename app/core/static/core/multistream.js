@@ -5,23 +5,30 @@ const chats = ["chat-1", "chat-2"]
 var chat = false
 var hidden = false
 
+var channels = []
 
-function init(channel1, channel2) {
-    if (channel1 === "None") {
-        // document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
-        // document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/sideshow/chat?darkpopout&parent=stream.feest.app"
-    } else {
-        document.getElementById(streams[0]).src = "https://player.twitch.tv/?channel=" + channel1 + "&parent=stream.feest.app&muted=true"
-        document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/" + channel1 + "/chat?darkpopout&parent=stream.feest.app"
-    }
 
-    if (channel2 === "None") {
-        // document.getElementById(streams[1]).src = "https://player.twitch.tv/?video=v1772874811&parent=stream.feest.app&muted=true"
-        // document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/bren/chat?darkpopout&parent=stream.feest.app"
-    } else {
-        document.getElementById(streams[1]).src = "https://player.twitch.tv/?channel=" + channel2 + "&parent=stream.feest.app&muted=true"
-        document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/" + channel2 + "/chat?darkpopout&parent=stream.feest.app"
-    }
+function init(param1, param2) {
+    channels[0] = "sideshow"
+    channels[1] = "bren"
+    document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
+    document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/sideshow/chat?darkpopout&parent=localhost"
+    document.getElementById(streams[1]).src = "https://player.twitch.tv/?video=v1772874811&parent=stream.feest.app&muted=true"
+    document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/bren/chat?darkpopout&parent=stream.feest.app"
+
+    // channel1 = param1
+    // channel2 = param2
+    // document.getElementById(streams[0]).src = "https://player.twitch.tv/?channel=" + channel1 + "&parent=stream.feest.app&muted=true"
+    // document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/" + channel1 + "/chat?darkpopout&parent=stream.feest.app"
+    // document.getElementById(streams[1]).src = "https://player.twitch.tv/?channel=" + channel2 + "&parent=stream.feest.app&muted=true"
+    // document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/" + channel2 + "/chat?darkpopout&parent=stream.feest.app"
+
+    $("#chat-1").on( 'load', function() {
+        document.getElementById("switch-chat-wrapper").style.display = "inline"
+    } );
+    
+    document.getElementById("current-chat").innerText = channels[0].toUpperCase()
+
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 }
@@ -31,6 +38,8 @@ function switchChat() {
     chat = !chat
     document.getElementById(chats[+ chat]).style.display = "inline"
     document.getElementById(chats[+ !chat]).style.display = "none"
+
+    document.getElementById("current-chat").innerText = channels[+ chat].toUpperCase()
 }
 
 
@@ -38,7 +47,7 @@ function collapse() {
     document.querySelector('.chat').style.setProperty("display", "none")
     document.querySelector(':root').style.setProperty("--chat-width", "0%")
     document.getElementById("collapse").style.display = "none"
-    document.getElementById("switch-chat").style.display = "none"
+    document.getElementById("switch-chat-wrapper").style.display = "none"
     document.getElementById("expand").style.display = "block"
 }
 
@@ -47,7 +56,7 @@ function expand() {
     document.querySelector('.chat').style.setProperty("display", "inline")
     document.querySelector(':root').style.setProperty("--chat-width", "20rem")
     document.getElementById("collapse").style.display = "inline"
-    document.getElementById("switch-chat").style.display = "inline"
+    document.getElementById("switch-chat-wrapper").style.display = "inline"
     document.getElementById("expand").style.display = "none"
 }
 
@@ -77,8 +86,6 @@ function toggleSecondStream() {
         document.getElementById(streams[0]).style.height = "100%"
 
         if (layout === mode[2]) {
-            document.querySelector('.chat').style.setProperty("top", "0%")
-            document.querySelector('.chat').style.setProperty("height", "100%")
             document.querySelector(':root').style.setProperty("--offset", "0%")
         }
     } else {
@@ -97,8 +104,6 @@ function toggleSecondStream() {
             document.getElementById(streams[0]).style.width = "var(--full-width)"
             document.getElementById(streams[0]).style.height = "100%"
 
-            document.querySelector('.chat').style.setProperty("top", "var(--costream-height)")
-            document.querySelector('.chat').style.setProperty("height", "calc(100% - var(--costream-height))")
             document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
         }
     }
@@ -145,8 +150,6 @@ function switchSideBySide() {
     document.getElementById(streams[1]).style.top = "0%"
     document.getElementById(streams[1]).style.left = "var(--half-width)"
 
-    document.querySelector('.chat').style.setProperty("top", "0%")
-    document.querySelector('.chat').style.setProperty("height", "100%")
     document.querySelector(':root').style.setProperty("--offset", "0%")
 }
 
@@ -162,8 +165,6 @@ function switchStacked() {
     document.getElementById(streams[1]).style.top = "50%"
     document.getElementById(streams[1]).style.left = "0%"
 
-    document.querySelector('.chat').style.setProperty("top", "0%")
-    document.querySelector('.chat').style.setProperty("height", "100%")
     document.querySelector(':root').style.setProperty("--offset", "0%")
 }
 
@@ -179,8 +180,6 @@ function switchCostream() {
     document.getElementById(streams[1]).style.left = "var(--full-width)"
 
     if (!hidden) {
-        document.querySelector('.chat').style.setProperty("top", "var(--costream-height)")
-        document.querySelector('.chat').style.setProperty("height", "calc(100% - var(--costream-height))")
         document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
     }
 }

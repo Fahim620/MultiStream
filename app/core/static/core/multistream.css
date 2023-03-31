@@ -37,20 +37,43 @@
   background-color: rgba(255,255,255,0.2);
 }
 
-#switch-chat {
+#switch-chat-wrapper {
   position: absolute;
   top: calc(0.5rem + var(--offset));
-  right: 3.3rem;
+  right: calc(var(--chat-width) / 2);
+  width: 14rem;
+  background-color: rgb(24,24,27);
+  transform: translateX(50%);
+  z-index: 900;
+  text-align: center;
+  display: none;
+}
+
+#switch-chat {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.2rem;
+  transform: translateX(-1rem);
 }
 
 #switch-chat:hover {
   background-color: rgba(255,255,255,0.2);
 }
 
+#current-chat {
+  font-family: "Roobert", sans-serif ;
+  font-weight: 600;
+  color: white;
+  display: inline-block;
+  transform: translateX(-1rem);
+  font-size: 0.9rem;
+}
+
 .tooltip {
   --bs-tooltip-bg: white;
   --bs-tooltip-opacity: 100%;
-  font-weight: bold;
 }
 
 #main {
@@ -85,8 +108,8 @@
   margin: 0;
   padding: 0;
   width: var(--chat-width);
-  height: 100%;
-  top: 0%;
+  height: calc(100% - var(--offset));
+  top: var(--offset);
   right: 0%;
 }
 
