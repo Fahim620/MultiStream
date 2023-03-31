@@ -41,7 +41,7 @@
   position: absolute;
   top: calc(0.5rem + var(--offset));
   right: calc(var(--chat-width) / 2);
-  width: 14rem;
+  width: 14.3rem;
   background-color: rgb(24,24,27);
   transform: translateX(50%);
   z-index: 900;
@@ -74,6 +74,7 @@
 .tooltip {
   --bs-tooltip-bg: white;
   --bs-tooltip-opacity: 100%;
+  font-weight: bold;
 }
 
 #main {

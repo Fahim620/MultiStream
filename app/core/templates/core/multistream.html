@@ -1,8 +1,12 @@
 {% extends "./default.html" %}
 {% load static %}
 
+{% block script %}
+  <script type="text/javascript" src="{% static 'core/js/multistream.js' %}"></script>
+{% endblock %}
+
 {% block style %}
-  <link rel="stylesheet" type="text/css" href="{% static 'core/multistream.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'core/css/multistream.css' %}">
 {% endblock %}
 
 {% block content %}
