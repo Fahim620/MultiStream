@@ -1,189 +1,55 @@
-const mode = ["side-by-side", "stacked", "co-stream"];
+const mode = ["side-by-side", "stacked", "co-stream"]
 var layout = mode[0]
-var mainStream = "stream-1"
-var secondStream = "stream-2"
-var swapped = false
+var streams = ["stream-1", "stream-2"]
+const chats = ["chat-1", "chat-2"]
+var chat = false
 var hidden = false
-var toggleBack = false
-var chatSwitched = false
+
 
 function init(channel1, channel2) {
     if (channel1 === "None") {
-        channel1 = "sideshow"
-    } 
+        // document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
+        // document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/sideshow/chat?darkpopout&parent=stream.feest.app"
+    } else {
+        document.getElementById(streams[0]).src = "https://player.twitch.tv/?channel=" + channel1 + "&parent=stream.feest.app&muted=true"
+        document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/" + channel1 + "/chat?darkpopout&parent=stream.feest.app"
+    }
+
     if (channel2 === "None") {
-        channel2 = "bren"
-    } 
+        // document.getElementById(streams[1]).src = "https://player.twitch.tv/?video=v1772874811&parent=stream.feest.app&muted=true"
+        // document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/bren/chat?darkpopout&parent=stream.feest.app"
+    } else {
+        document.getElementById(streams[1]).src = "https://player.twitch.tv/?channel=" + channel2 + "&parent=stream.feest.app&muted=true"
+        document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/" + channel2 + "/chat?darkpopout&parent=stream.feest.app"
+    }
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-
-    document.getElementById("stream-1").src = "https://player.twitch.tv/?channel=" + channel1 + "&parent=feest.app&muted=true"
-    document.getElementById("stream-2").src = "https://player.twitch.tv/?channel=" + channel2 + "&parent=feest.app&muted=true"
-
-    // document.getElementById("stream-1").src = "https://player.twitch.tv/?video=v1772874401&parent=feest.app&muted=true"
-    // document.getElementById("stream-2").src = "https://player.twitch.tv/?video=v1772874811&parent=feest.app&muted=true"
-
-    document.getElementById("chat-1").src = "https://www.twitch.tv/embed/" + channel1 + "/chat?darkpopout&parent=feest.app"
-    document.getElementById("chat-2").src = "https://www.twitch.tv/embed/" + channel2 + "/chat?darkpopout&parent=feest.app"
 }
 
 
-function switchSideBySide() {
-    if (layout === mode[2]) {
-        undoCostream()
-    }
-
-    layout = mode[0]
-    document.getElementById("stream-content").classList = "m-0 row flex-grow-1"
-    if (swapped) {
-        swapped = false
-        swap()
-    }
-    document.getElementById(mainStream).style.width = "50%"
-    document.getElementById(secondStream).style.width = "50%"
-}
-
-
-function switchStacked() {
-    if (layout === mode[2]) {
-        undoCostream()
-    }
-
-    layout = mode[1]
-    document.getElementById("stream-content").classList = "m-0 d-flex flex-column flex-grow-1"
-    if (swapped) {
-        swapped = false
-        swap()
-    }
-    document.getElementById(mainStream).style.width = "100%"
-    document.getElementById(secondStream).style.width = "100%"
-}
-
-
-function switchCostream(stream=secondStream) {
-    layout = mode[2]
-    document.querySelector(':root').style.setProperty("--chat-width", "var(--extended-width)")
-    document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
-    document.getElementById("costream-placeholder").style.display = "inline"
-    document.getElementById("costream-placeholder").style.height = "var(--costream-height)"
-
-    document.getElementById(stream).style.width = "var(--chat-width)"
-    document.getElementById(stream).style.height = "var(--costream-height)"
-    document.getElementById(stream).classList.remove("flex-grow-1")
-    document.getElementById(stream).style.position = "absolute"
-    document.getElementById(stream).style.top = "0%"
-    document.getElementById(stream).style.right = "0%"
-
-    // document.getElementById("chat").insertBefore(document.getElementById(secondStream), document.getElementById("chat").firstChild)
-    // document.getElementById(secondStream).style.width = "100%"
-    // document.getElementById(secondStream).style.height = "var(--costream-height)"
-    // document.getElementById(secondStream).classList.remove("flex-grow-1")
-    
-}
-
-
-function undoCostream(stream=secondStream) {
-    document.querySelector(':root').style.setProperty("--chat-width", "var(--original-width)")
-    // if (swapped) {
-    //     document.getElementById("stream-content").insertBefore(document.getElementById(secondStream), document.getElementById("stream-content").firstChild)
-    // } else {
-    //     document.getElementById("stream-content").appendChild(document.getElementById(secondStream))
-    // }
-    // document.getElementById(secondStream).style.height = "auto"
-    // document.getElementById(secondStream).classList.add("flex-grow-1")
-
-    document.getElementById("costream-placeholder").style.display = "none"
-    document.getElementById(stream).style.height = "auto"
-    document.getElementById(stream).classList.add("flex-grow-1")
-    document.getElementById(stream).style.position = "static"
-
-    document.querySelector(':root').style.setProperty("--offset", "0px")
-}
-
-
-function toggleSecondStream() {
-    if (!hidden) {
-        document.getElementById(secondStream).style.display = "none"
-        hidden = true
-        document.getElementById("toggle-icon").classList.remove("fa-video")
-        document.getElementById("toggle-icon").classList.add("fa-video-slash")
-
-        if (layout === mode[2]) {
-            document.getElementById("costream-placeholder").style.display = "none"
-            document.querySelector(':root').style.setProperty("--offset", "0px")
-        }
-        
-    } else {
-        document.getElementById(secondStream).style.display = "inline"
-        hidden = false
-        document.getElementById("toggle-icon").classList.remove("fa-video-slash")
-        document.getElementById("toggle-icon").classList.add("fa-video")
-
-        if (layout === mode[2]) {
-            document.getElementById("costream-placeholder").style.display = "inline"
-            document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
-        }
-    }
-}
-
-
-function swap() {
-    if (hidden) {
-        toggleSecondStream()
-        toggleBack = true
-    }
-    
-    if (!swapped){
-        if (layout === mode[0]) {
-            document.getElementById("stream-content").classList.add("flex-row-reverse")
-        } else if (layout === mode[1]) {
-            document.getElementById("stream-content").classList.add("flex-column-reverse")
-        } else if (layout === mode[2]) {
-            undoCostream()
-            switchCostream(mainStream)
-        }
-        swapped = true
-    } else {
-        if (layout === mode[0]) {
-            document.getElementById("stream-content").classList.remove("flex-row-reverse")
-        } else if (layout === mode[1]) {
-            document.getElementById("stream-content").classList.remove("flex-column-reverse")
-        } else if (layout === mode[2]) {
-            undoCostream()
-            switchCostream(mainStream)
-        }
-        swapped = false
-    }
-
-    temp = mainStream
-    mainStream = secondStream
-    secondStream = temp
-
-    if (toggleBack) {
-        toggleSecondStream()
-        toggleBack = false
-    }
+function switchChat() {
+    chat = !chat
+    document.getElementById(chats[+ chat]).style.display = "inline"
+    document.getElementById(chats[+ !chat]).style.display = "none"
 }
 
 
 function collapse() {
-    document.getElementById("chat").style.display = "none"
-    document.getElementById("main").style.width = "100%"
+    document.querySelector('.chat').style.setProperty("display", "none")
+    document.querySelector(':root').style.setProperty("--chat-width", "0%")
     document.getElementById("collapse").style.display = "none"
     document.getElementById("switch-chat").style.display = "none"
     document.getElementById("expand").style.display = "block"
-    document.getElementById("stream-overlay").style.right = "0.4375%"
 }
 
 
 function expand() {
-    document.getElementById("chat").style.display = "flex";
-    document.getElementById("main").style.width = "calc(100% - var(--chat-width))";
+    document.querySelector('.chat').style.setProperty("display", "inline")
+    document.querySelector(':root').style.setProperty("--chat-width", "20rem")
     document.getElementById("collapse").style.display = "inline"
     document.getElementById("switch-chat").style.display = "inline"
     document.getElementById("expand").style.display = "none"
-    document.getElementById("stream-overlay").style.right = "calc(var(--chat-width) + 0.4375%)"
-} 
+}
 
 
 function toggleFullScreen() {
@@ -199,14 +65,122 @@ function toggleFullScreen() {
 }
 
 
-function switchChat() {
-    if (chatSwitched) {
-        document.getElementById("chat-1").style.display = "flex"
-        document.getElementById("chat-2").style.display = "none"
-        chatSwitched = false
+function toggleSecondStream() {
+    if (!hidden) {
+        hidden = true
+        document.getElementById("toggle-icon").classList.remove("fa-video")
+        document.getElementById("toggle-icon").classList.add("fa-video-slash")
+
+        document.getElementById(streams[1]).style.display = "none"
+
+        document.getElementById(streams[0]).style.width = "var(--full-width)"
+        document.getElementById(streams[0]).style.height = "100%"
+
+        if (layout === mode[2]) {
+            document.querySelector('.chat').style.setProperty("top", "0%")
+            document.querySelector('.chat').style.setProperty("height", "100%")
+            document.querySelector(':root').style.setProperty("--offset", "0%")
+        }
     } else {
-        document.getElementById("chat-1").style.display = "none"
-        document.getElementById("chat-2").style.display = "flex"
-        chatSwitched = true
+        hidden = false
+        document.getElementById("toggle-icon").classList.remove("fa-video-slash")
+        document.getElementById("toggle-icon").classList.add("fa-video")
+
+        document.getElementById(streams[1]).style.display = "inline"
+        if (layout === mode[0]) {
+            document.getElementById(streams[0]).style.width = "var(--half-width)"
+            document.getElementById(streams[0]).style.height = "100%"
+        } else if (layout === mode[1]) {
+            document.getElementById(streams[0]).style.width = "var(--full-width)"
+            document.getElementById(streams[0]).style.height = "50%"
+        } else if (layout === mode[2]) {
+            document.getElementById(streams[0]).style.width = "var(--full-width)"
+            document.getElementById(streams[0]).style.height = "100%"
+
+            document.querySelector('.chat').style.setProperty("top", "var(--costream-height)")
+            document.querySelector('.chat').style.setProperty("height", "calc(100% - var(--costream-height))")
+            document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
+        }
+    }
+    
+}
+
+
+function swapStreams() {
+    if (hidden) {
+        toggleSecondStream()
+        toggleBack = true
+    }
+
+    temp = streams[0]
+    streams[0] = streams[1]
+    streams[1] = temp
+    
+    document.getElementById(streams[0]).style.top = "0%"
+    document.getElementById(streams[0]).style.left = "0%"
+
+    if (layout === mode[0]) {
+        switchSideBySide()
+    } else if (layout === mode[1]) {
+        switchStacked()
+    } else if (layout === mode[2]) {
+        switchCostream()
+    }
+
+    if (toggleBack) {
+        toggleSecondStream()
+        toggleBack = false
+    }
+}
+
+
+function switchSideBySide() {
+    layout = mode[0]
+    if (!hidden) {
+        document.getElementById(streams[0]).style.width = "var(--half-width)"
+        document.getElementById(streams[0]).style.height = "100%"
+    }
+    document.getElementById(streams[1]).style.width = "var(--half-width)"
+    document.getElementById(streams[1]).style.height = "100%"
+    document.getElementById(streams[1]).style.top = "0%"
+    document.getElementById(streams[1]).style.left = "var(--half-width)"
+
+    document.querySelector('.chat').style.setProperty("top", "0%")
+    document.querySelector('.chat').style.setProperty("height", "100%")
+    document.querySelector(':root').style.setProperty("--offset", "0%")
+}
+
+
+function switchStacked() {
+    layout = mode[1]
+    if (!hidden) {
+        document.getElementById(streams[0]).style.width = "var(--full-width)"
+        document.getElementById(streams[0]).style.height = "50%"
+    }
+    document.getElementById(streams[1]).style.width = "var(--full-width)"
+    document.getElementById(streams[1]).style.height = "50%"
+    document.getElementById(streams[1]).style.top = "50%"
+    document.getElementById(streams[1]).style.left = "0%"
+
+    document.querySelector('.chat').style.setProperty("top", "0%")
+    document.querySelector('.chat').style.setProperty("height", "100%")
+    document.querySelector(':root').style.setProperty("--offset", "0%")
+}
+
+
+function switchCostream() {
+    layout = mode[2]
+    document.getElementById(streams[0]).style.width = "var(--full-width)"
+    document.getElementById(streams[0]).style.height = "100%"
+
+    document.getElementById(streams[1]).style.width = "var(--chat-width)"
+    document.getElementById(streams[1]).style.height = "var(--costream-height)"
+    document.getElementById(streams[1]).style.top = "0%"
+    document.getElementById(streams[1]).style.left = "var(--full-width)"
+
+    if (!hidden) {
+        document.querySelector('.chat').style.setProperty("top", "var(--costream-height)")
+        document.querySelector('.chat').style.setProperty("height", "calc(100% - var(--costream-height))")
+        document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
     }
 }

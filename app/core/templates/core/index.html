@@ -7,6 +7,7 @@
 {% block content %}
 
 <div id="body">
+
   <button id="collapse" class="overlay btn btn-secondary" onclick="collapse()" type="button" role="button"
   data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="tooltip" data-bs-title="Collapse">
     <i class="fa-sharp fas fa-arrow-right-from-line fa-lg"></i>
@@ -34,50 +35,38 @@
         <li><button class="dropdown-item" type="button" onclick="switchCostream()">Co-stream</button></li>
       </ul>
     </div>
+
     <button id="fullscreen" class="overlay btn btn-secondary" onclick="toggleFullScreen()" type="button" role="button"
     data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip" data-bs-title="Fullscreen">
       <i id="fullscreen-icon" class="fa-sharp fa-solid fa-expand"></i>
     </button>
+
     <button id="toggle-second-screen" class="overlay btn btn-secondary" onclick="toggleSecondStream()" type="button" role="button"
     data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip" data-bs-title="Toggle Second Stream">
       <i id="toggle-icon" class="fa-sharp fa-solid fa-video"></i>
     </button>
-    <button id="swap" class="overlay btn btn-secondary" onclick="swap()" type="button" role="button"
-    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip" data-bs-title="Swap">
+
+    <button id="swap-streams" class="overlay btn btn-secondary" onclick="swapStreams()" type="button" role="button"
+    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="tooltip" data-bs-title="Swap Streams">
       <i class="fa-sharp fa-solid fa-right-left"></i>
     </button>
   </div>
 
-  <div class="container-fluid min-vh-100 d-flex flex-column">
-    <div class="row flex-grow-1">
-      {% comment %} MAIN VIDEO STREAMS {% endcomment %}
-      <div id="main" class="m-0 p-0 d-flex flex-column" style="width: calc(100% - var(--chat-width));">
-        <div id="stream-content" class="m-0 row flex-grow-1">
-          <iframe id="stream-1" class="p-0 flex-grow-1" style="width: 50%;"
-            frameborder="0"
-            allowfullscreen>
-          </iframe>
-          <iframe id="stream-2" class="p-0 flex-grow-1" style="width: 50%;"
-            frameborder="0"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-      
-      {% comment %} CHAT SIDEBAR {% endcomment %}
-      <div id="chat" class="m-0 p-0 flex-column" style="width: var(--chat-width); display: flex;">
-        <div id="costream-placeholder" class="p-0" style="display: none;">
-
-        </div>
-        <iframe class="m-0 p-0 flex-grow-1" id="chat-1"
-          frameborder="0">
-        </iframe>
-        <iframe class="m-0 p-0 flex-grow-1" id="chat-2" style="display: none;"
-          frameborder="0">
-        </iframe>
-      </div>
-      
-    </div>
+  <div id="main">
+    <iframe id="stream-1"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+    <iframe id="stream-2"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+    <iframe id="chat-1" class="chat"
+      frameborder="0">
+    </iframe>
+    <iframe id="chat-2" class="chat"
+      frameborder="0">
+    </iframe>
   </div>
 </div>
 <script>

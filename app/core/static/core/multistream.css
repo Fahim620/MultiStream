@@ -1,9 +1,9 @@
 :root {
-  --original-width: 20rem;
-  --extended-width: 30rem;
-  --chat-width: var(--original-width);
+  --chat-width: 20rem;
   --costream-height: calc(var(--chat-width) * (9 / 16));
   --offset: 0px;
+  --half-width: calc(50% - (var(--chat-width) / 2));
+  --full-width: calc(100% - var(--chat-width));
 }
 
 .overlay {
@@ -17,13 +17,14 @@
 }
 
 .overlay:hover {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(255,255,255,0.2);
 }
 
 #stream-overlay {
   position: absolute;
   top: 0.53%;
   right: calc(var(--chat-width) + 0.4375%);
+  z-index: 999;
 }
 
 #collapse {
@@ -46,9 +47,49 @@
   background-color: rgba(255,255,255,0.2);
 }
 
-
 .tooltip {
   --bs-tooltip-bg: white;
   --bs-tooltip-opacity: 100%;
   font-weight: bold;
+}
+
+#main {
+  margin: 0;
+  padding: 0;
+}
+
+#stream-1 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: var(--half-width);
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  z-index: 500;
+}
+
+#stream-2 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: var(--half-width);
+  height: 100%;
+  top: 0%;
+  left: var(--half-width);
+  z-index: 500;
+}
+
+.chat {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: var(--chat-width);
+  height: 100%;
+  top: 0%;
+  right: 0%;
+}
+
+#chat-2 {
+  display: none;
 }
