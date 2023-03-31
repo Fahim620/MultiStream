@@ -1,9 +1,0 @@
-/* import the Bootstrap */
-@import "bootstrap";
-
-/* ------- customize primary button color -------- */   
-$mynewcolor:#9147ff;
-
-.btn-outline-primary {
-    @include button-outline-variant($mynewcolor, #222222, lighten($mynewcolor,5%), $mynewcolor);
-}
