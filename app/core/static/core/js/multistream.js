@@ -8,7 +8,7 @@ var hidden = false
 var channels = []
 
 
-function init(param1, param2) {
+function init() {
     channels[0] = "sideshow"
     channels[1] = "bren"
     document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
