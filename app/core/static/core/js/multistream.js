@@ -8,20 +8,20 @@ var hidden = false
 var channels = []
 
 
-function init() {
-    channels[0] = "sideshow"
-    channels[1] = "bren"
-    document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
-    document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/sideshow/chat?darkpopout&parent=localhost"
-    document.getElementById(streams[1]).src = "https://player.twitch.tv/?video=v1772874811&parent=stream.feest.app&muted=true"
-    document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/bren/chat?darkpopout&parent=stream.feest.app"
+function init(stream) {
+    // channels[0] = "sideshow"
+    // channels[1] = "bren"
+    // document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
+    // document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/sideshow/chat?darkpopout&parent=localhost"
+    // document.getElementById(streams[1]).src = "https://player.twitch.tv/?video=v1772874811&parent=stream.feest.app&muted=true"
+    // document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/bren/chat?darkpopout&parent=stream.feest.app"
 
-    // channel1 = param1
-    // channel2 = param2
-    // document.getElementById(streams[0]).src = "https://player.twitch.tv/?channel=" + channel1 + "&parent=stream.feest.app&muted=true"
-    // document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/" + channel1 + "/chat?darkpopout&parent=stream.feest.app"
-    // document.getElementById(streams[1]).src = "https://player.twitch.tv/?channel=" + channel2 + "&parent=stream.feest.app&muted=true"
-    // document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/" + channel2 + "/chat?darkpopout&parent=stream.feest.app"
+    channels[0] = stream[0]["channel"]
+    channels[1] = stream[1]["channel"]
+    document.getElementById(streams[0]).src = "https://player.twitch.tv/?channel=" + channels[0] + "&parent=stream.feest.app&muted=true"
+    document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/" + channels[0] + "/chat?darkpopout&parent=stream.feest.app"
+    document.getElementById(streams[1]).src = "https://player.twitch.tv/?channel=" + channels[1] + "&parent=stream.feest.app&muted=true"
+    document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/" + channels[1] + "/chat?darkpopout&parent=stream.feest.app"
 
     $("#chat-1").on( 'load', function() {
         document.getElementById("switch-chat-wrapper").style.display = "inline"

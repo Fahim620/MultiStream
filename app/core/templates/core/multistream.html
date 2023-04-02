@@ -78,6 +78,6 @@
   </div>
 </div>
 <script>
-  init()
+  init(JSON.parse('{{ streams|escapejs  }}'))
 </script>
 {% endblock %}

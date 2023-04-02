@@ -4,25 +4,29 @@
 {% block content %}
 <div class="vh-100 d-flex align-items-center justify-content-center">
   <div class="container w-25">
-    <form class="row g-3" action="/form/" method="post">
+    <h1 class="display-4">Multi<b>Stream</b></h1>
+    <form class="row g-3" action="/watch/" method="post">
+      {% csrf_token %}
       <div class="col-6">
         <label for="channel-input-1" class="form-label">Channel 1</label>
-        <input type="text" class="form-control" id="channel-input-1">
+        <input type="text" class="form-control" id="channel-input-1" name="channel-1" required>
       </div>
       <div class="col-6">
         <label for="channel-input-2" class="form-label">Channel 2</label>
-        <input type="text" class="form-control" id="channel-input-2">
+        <input type="text" class="form-control" id="channel-input-2" name="channel-2" required>
       </div>
       <div class="col-6">
-        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-1" autocomplete="off" checked>
+        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-1" value="twitch" autocomplete="off" checked>
         <label class="btn btn-outline-secondary" for="channel-1-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
-        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-2" autocomplete="off">
+
+        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-2" value="youtube" autocomplete="off" disabled>
         <label class="btn btn-outline-danger" for="channel-1-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
       </div>
       <div class="col-6">
-        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-1" autocomplete="off" checked>
+        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-1" value="twitch" autocomplete="off" checked>
         <label class="btn btn-outline-secondary" for="channel-2-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
-        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-2" autocomplete="off">
+
+        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-2" value="youtube" autocomplete="off" disabled>
         <label class="btn btn-outline-danger" for="channel-2-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
       </div>
       <div class="col-12">
