@@ -78,6 +78,6 @@
   </div>
 </div>
 <script>
-  init(JSON.parse('{{ streams|escapejs  }}'))
+  init(JSON.parse('{{ streams|escapejs  }}'), '{{ YT_API_KEY }}')
 </script>
 {% endblock %}

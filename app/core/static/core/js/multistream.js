@@ -8,20 +8,27 @@ var hidden = false
 var channels = []
 
 
-function init(stream) {
-    // channels[0] = "sideshow"
-    // channels[1] = "bren"
+function init(param, YT_API_KEY) {
+    // channels.push("sideshow")
+    // channels.push("bren")
     // document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
-    // document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/sideshow/chat?darkpopout&parent=localhost"
+    // document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/sideshow/chat?darkpopout&parent=stream.feest.app"
     // document.getElementById(streams[1]).src = "https://player.twitch.tv/?video=v1772874811&parent=stream.feest.app&muted=true"
     // document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/bren/chat?darkpopout&parent=stream.feest.app"
 
-    channels[0] = stream[0]["channel"]
-    channels[1] = stream[1]["channel"]
-    document.getElementById(streams[0]).src = "https://player.twitch.tv/?channel=" + channels[0] + "&parent=stream.feest.app&muted=true"
-    document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/" + channels[0] + "/chat?darkpopout&parent=stream.feest.app"
-    document.getElementById(streams[1]).src = "https://player.twitch.tv/?channel=" + channels[1] + "&parent=stream.feest.app&muted=true"
-    document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/" + channels[1] + "/chat?darkpopout&parent=stream.feest.app"
+    for (let i=0; i<param.length; i++) {
+        if (param[i]["type"] === "twitch") {
+            channels.push(param[i]["channel"])
+            document.getElementById(streams[i]).src = "https://player.twitch.tv/?channel=" + channels[i] + "&parent=stream.feest.app&muted=true"
+            document.getElementById(chats[i]).src = "https://www.twitch.tv/embed/" + channels[i] + "/chat?darkpopout&parent=stream.feest.app"
+        } else if (param[i]["type"] === "youtube") {
+            channels.push(param[i]["channel"])
+            getChannelID(channels[i], YT_API_KEY)
+            .then(channelID => document.getElementById(streams[i]).src = "https://www.youtube.com/embed/live_stream?channel=" + channelID);
+            getVideoID(channels[i], YT_API_KEY)
+            .then(videoID => document.getElementById(chats[i]).src = "https://www.youtube.com/live_chat?dark_theme=1&v=" + videoID);
+        }
+    }
 
     $("#chat-1").on( 'load', function() {
         document.getElementById("switch-chat-wrapper").style.display = "inline"
@@ -32,6 +39,36 @@ function init(stream) {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 }
+
+
+const getChannelID = (searchQuery, API_KEY) => {
+    return new Promise((resolve, reject) => {
+        let channelID;
+  
+        fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${searchQuery}&part=snippet&type=channel`)
+            .then(response => response.json())
+            .then(data => {
+            channelID = data.items[0].snippet.channelId;
+            resolve(channelID);
+            })
+            .catch(error => reject(error));
+    });
+};
+
+
+const getVideoID = (searchQuery, API_KEY) => {
+    return new Promise((resolve, reject) => {
+        let videoID;
+  
+        fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${searchQuery}&part=snippet&eventType=live&type=video`)
+            .then(response => response.json())
+            .then(data => {
+            videoID = data.items[0].id.videoId;
+            resolve(videoID);
+            })
+            .catch(error => reject(error));
+    });
+};
 
 
 function switchChat() {
