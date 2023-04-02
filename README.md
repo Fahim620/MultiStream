@@ -1,6 +1,6 @@
 # MultiStream
 
-Updated version of [Multitwitch](https://multitwitch.tv/).
+Updated version of [MultiTwitch](https://multitwitch.tv/).
 
 Also similar to [GIGABRA.IN](https://gigabra.in/).
 
