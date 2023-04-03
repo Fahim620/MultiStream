@@ -23,10 +23,8 @@ function init(param, YT_API_KEY) {
             document.getElementById(chats[i]).src = "https://www.twitch.tv/embed/" + channels[i] + "/chat?darkpopout&parent=stream.feest.app"
         } else if (param[i]["type"] === "youtube") {
             channels.push(param[i]["channel"])
-            getChannelID(channels[i], YT_API_KEY)
-            .then(channelID => document.getElementById(streams[i]).src = "https://www.youtube.com/embed/live_stream?channel=" + channelID);
-            getVideoID(channels[i], YT_API_KEY)
-            .then(videoID => document.getElementById(chats[i]).src = "https://www.youtube.com/live_chat?dark_theme=1&v=" + videoID);
+            document.getElementById(streams[i]).src = "https://www.youtube.com/embed/" + param[i]["video"]
+            document.getElementById(chats[i]).src = "https://www.youtube.com/live_chat?dark_theme=1&v=" + param[i]["video"]
         }
     }
 

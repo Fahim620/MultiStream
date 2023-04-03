@@ -37,37 +37,35 @@
   background-color: rgba(255,255,255,0.2);
 }
 
-#switch-chat-wrapper {
+#switch-chat {
   position: absolute;
   top: calc(0.5rem + var(--offset));
-  right: calc(var(--chat-width) / 2);
-  width: 14.3rem;
-  background-color: rgb(24,24,27);
-  transform: translateX(50%);
-  z-index: 900;
-  text-align: center;
-  display: none;
-}
-
-#switch-chat {
-  background-color: rgba(0,0,0,0);
-  border: none;
-  width: 2rem;
-  height: 2rem;
-  padding: 0.2rem;
-  transform: translateX(-1rem);
+  right: calc(1rem);
 }
 
 #switch-chat:hover {
   background-color: rgba(255,255,255,0.2);
 }
 
+#switch-chat-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--chat-width);
+  height: 3rem;
+  background-color: rgb(24,24,27);
+  z-index: 900;
+  text-align: center;
+  display: none;
+}
+
+
 #current-chat {
   font-family: "Roobert", sans-serif ;
   font-weight: 600;
   color: white;
   display: inline-block;
-  transform: translateX(-1rem);
+  transform: translateY(0.7rem);
   font-size: 0.9rem;
 }
 

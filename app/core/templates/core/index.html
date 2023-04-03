@@ -8,23 +8,25 @@
     <form class="row g-3" action="/watch/" method="post">
       {% csrf_token %}
       <div class="col-6">
-        <label for="channel-input-1" class="form-label">Channel 1</label>
-        <input type="text" class="form-control mb-3" id="channel-input-1" name="channel-1" required>
+        <input type="text" class="form-control mb-3" id="channel-input-1" name="channel-1" placeholder="Channel 1" required>
 
-        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-1" value="twitch" autocomplete="off" checked>
+        <input type="text" class="form-control mb-3" id="video-input-1" name="video-1" placeholder="Video ID" style="display: none;">
+
+        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-1" value="twitch" onclick="hide(1)" autocomplete="off" checked>
         <label class="btn btn-outline-secondary" for="channel-1-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
 
-        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-2" value="youtube" autocomplete="off">
+        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-2" value="youtube" onclick="show(1)" autocomplete="off">
         <label class="btn btn-outline-danger" for="channel-1-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
       </div>
       <div class="col-6">
-        <label for="channel-input-2" class="form-label">Channel 2</label>
-        <input type="text" class="form-control mb-3" id="channel-input-2" name="channel-2" required>
+        <input type="text" class="form-control mb-3" id="channel-input-2" name="channel-2" placeholder="Channel 2" required>
 
-        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-1" value="twitch" autocomplete="off" checked>
+        <input type="text" class="form-control mb-3" id="video-input-2" name="video-2" placeholder="Video ID" style="display: none;">
+
+        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-1" value="twitch" onclick="hide(2)" autocomplete="off" checked>
         <label class="btn btn-outline-secondary" for="channel-2-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
 
-        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-2" value="youtube" autocomplete="off">
+        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-2" value="youtube" onclick="show(2)" autocomplete="off">
         <label class="btn btn-outline-danger" for="channel-2-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
       </div>
       <div class="col-12">
@@ -33,4 +35,13 @@
     </form>
   </div>
 </div>
+<script>
+  function show(id) {
+    document.getElementById("video-input-"+id).style.display = "inline"
+  }
+
+  function hide(id) {
+    document.getElementById("video-input-"+id).style.display = "none"
+  }
+</script>
 {% endblock %}
