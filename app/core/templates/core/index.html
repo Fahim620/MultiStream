@@ -1,11 +1,15 @@
 {% extends "./default.html" %}
 {% load static %}
 
+{% block script %}
+  <script type="text/javascript" src="{% static 'core/js/index.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <div class="vh-100 d-flex align-items-center justify-content-center">
   <div class="container w-25">
     <h1 class="display-4">Multi<b>Stream</b></h1>
-    <form class="row g-3" action="/watch/" method="get">
+    <form class="row g-3" action="/watch" method="get">
       <div class="col-6" id="1">
         <input type="radio" class="btn-check" id="stream-1-option-1" onclick="twitch(1)" autocomplete="off" checked>
         <label class="btn btn-outline-primary" for="stream-1-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
@@ -30,43 +34,4 @@
     </form>
   </div>
 </div>
-<script>
-  function youtube(id) {
-    if (!document.getElementById("video-input-" + id)) {
-      newElement = document.createElement("input")
-      newElement.type = "text"
-      newElement.classList = "form-control mt-3"
-      newElement.id = "video-input-" + id
-      newElement.name = "yt-" + id
-      newElement.placeholder = "Video ID"
-      newElement.required = true
-
-      document.getElementById(id).appendChild(newElement)
-
-      document.getElementById("channel-input-" + id).remove();
-    }
-
-    document.getElementById("stream-" + id + "-option-1").checked = false
-    document.getElementById("stream-" + id + "-option-2").checked = true
-  }
-
-  function twitch(id) {
-    if (document.getElementById("video-input-" + id)) {
-      newElement = document.createElement("input")
-      newElement.type = "text"
-      newElement.classList = "form-control mt-3"
-      newElement.id = "channel-input-" + id
-      newElement.name = "tw-" + id
-      newElement.placeholder = "Channel Name"
-      newElement.required = true
-
-      document.getElementById(id).appendChild(newElement)
-
-      document.getElementById("video-input-" + id).remove()
-    }
-
-    document.getElementById("stream-" + id + "-option-1").checked = true
-    document.getElementById("stream-" + id + "-option-2").checked = false
-  }
-</script>
 {% endblock %}

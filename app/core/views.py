@@ -10,7 +10,7 @@ def index(request):
 
     return render(request, 'core/index.html')
 
-def multistream(request):
+def watch(request):
     context = {}
 
     if (request.method == 'GET') and (request.GET != {}):
@@ -32,7 +32,7 @@ def multistream(request):
             
         context['streams'] = json.dumps(streams)
 
-        return render(request, 'core/multistream.html', context)
+        return render(request, 'core/watch.html', context)
 
     else:
 
