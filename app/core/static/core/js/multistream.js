@@ -207,3 +207,7 @@ function switchCostream() {
         document.querySelector(':root').style.setProperty("--offset", "var(--costream-height)")
     }
 }
+
+function chatWidth(val) {
+    document.querySelector(':root').style.setProperty("--chat-width", val + "rem")
+}
