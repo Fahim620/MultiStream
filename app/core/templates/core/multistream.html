@@ -34,7 +34,7 @@
     </button>
     <div id="dropdown" class="dropstart">
       <button id="settings" class="overlay btn btn-secondary" type="button" role="button" data-bs-toggle="dropdown">
-        <i class="fa-sharp fa-solid fa-wrench"></i>
+        <i class="fa-sharp fa-solid fa-sliders"></i>
       </button>
       <ul class="dropdown-menu">
         <li><span class="dropdown-header">Layouts</span></li>
@@ -86,6 +86,6 @@
   </div>
 </div>
 <script>
-  init(JSON.parse('{{ streams|escapejs  }}'), '{{ YT_API_KEY }}')
+  init(JSON.parse('{{ streams|escapejs  }}'))
 </script>
 {% endblock %}

@@ -8,7 +8,7 @@ var hidden = false
 var channels = []
 
 
-function init(param, YT_API_KEY) {
+function init(param) {
     // channels.push("sideshow")
     // channels.push("bren")
     // document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
@@ -37,34 +37,6 @@ function init(param, YT_API_KEY) {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 }
-
-const getChannelID = (searchQuery, API_KEY) => {
-    return new Promise((resolve, reject) => {
-        let channelID;
-  
-        fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${searchQuery}&part=snippet&type=channel`)
-            .then(response => response.json())
-            .then(data => {
-            channelID = data.items[0].snippet.channelId;
-            resolve(channelID);
-            })
-            .catch(error => reject(error));
-    });
-};
-
-const getVideoID = (searchQuery, API_KEY) => {
-    return new Promise((resolve, reject) => {
-        let videoID;
-  
-        fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${searchQuery}&part=snippet&eventType=live&type=video`)
-            .then(response => response.json())
-            .then(data => {
-            videoID = data.items[0].id.videoId;
-            resolve(videoID);
-            })
-            .catch(error => reject(error));
-    });
-};
 
 function switchChat() {
     chat = !chat

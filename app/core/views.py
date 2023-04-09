@@ -12,25 +12,28 @@ def index(request):
 
 def multistream(request):
     context = {}
-    context['YT_API_KEY'] = settings.YT_API_KEY
+
     if (request.method == 'GET') and (request.GET != {}):
         streams = []
-        num = 2
-        for i in range(1, num + 1):
-            if request.GET.get('ch-%s'%(i), None) == None:
+
+        print(request.GET)
+
+        for k, v in request.GET.items():
+            if "yt" in k:
                 streams.append({
-                    "video": request.GET.get('v-%s'%(i), None),
+                    "video": v,
                     "type": "youtube"
-                })        
-            else:
+                })
+            if "tw" in k:
                 streams.append({
-                    "channel": request.GET.get('ch-%s'%(i), None),
+                    "channel": v,
                     "type": "twitch"
                 })
-
+            
         context['streams'] = json.dumps(streams)
 
         return render(request, 'core/multistream.html', context)
 
     else:
+
         return HttpResponseRedirect(reverse(index))

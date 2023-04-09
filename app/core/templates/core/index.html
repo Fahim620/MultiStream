@@ -13,7 +13,7 @@
         <input type="radio" class="btn-check" id="stream-1-option-2" onclick="youtube(1)" autocomplete="off">
         <label class="btn btn-outline-danger" for="stream-1-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
 
-        <input type="text" class="form-control mt-3" id="channel-input-1" name="ch-1" placeholder="Channel Name" required>
+        <input type="text" class="form-control mt-3" id="channel-input-1" name="tw-1" placeholder="Channel Name" required>
       </div>
       <div class="col-6" id="2">
         <input type="radio" class="btn-check" id="stream-2-option-1" onclick="twitch(2)" autocomplete="off" checked>
@@ -22,7 +22,7 @@
         <input type="radio" class="btn-check" id="stream-2-option-2" onclick="youtube(2)" autocomplete="off">
         <label class="btn btn-outline-danger" for="stream-2-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
 
-        <input type="text" class="form-control mt-3" id="channel-input-2" name="ch-2" placeholder="Channel Name" required>
+        <input type="text" class="form-control mt-3" id="channel-input-2" name="tw-2" placeholder="Channel Name" required>
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-success fa-pull-right">Submit</button>
@@ -37,7 +37,7 @@
       newElement.type = "text"
       newElement.classList = "form-control mt-3"
       newElement.id = "video-input-" + id
-      newElement.name = "v-" + id
+      newElement.name = "yt-" + id
       newElement.placeholder = "Video ID"
       newElement.required = true
 
@@ -56,7 +56,7 @@
       newElement.type = "text"
       newElement.classList = "form-control mt-3"
       newElement.id = "channel-input-" + id
-      newElement.name = "ch-" + id
+      newElement.name = "tw-" + id
       newElement.placeholder = "Channel Name"
       newElement.required = true
 
