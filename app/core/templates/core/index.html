@@ -5,29 +5,24 @@
 <div class="vh-100 d-flex align-items-center justify-content-center">
   <div class="container w-25">
     <h1 class="display-4">Multi<b>Stream</b></h1>
-    <form class="row g-3" action="/watch/" method="post">
-      {% csrf_token %}
-      <div class="col-6">
-        <input type="text" class="form-control mb-3" id="channel-input-1" name="channel-1" placeholder="Channel 1" required>
+    <form class="row g-3" action="/watch/" method="get">
+      <div class="col-6" id="1">
+        <input type="radio" class="btn-check" id="stream-1-option-1" onclick="twitch(1)" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="stream-1-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
 
-        <input type="text" class="form-control mb-3" id="video-input-1" name="video-1" placeholder="Video ID" style="display: none;">
+        <input type="radio" class="btn-check" id="stream-1-option-2" onclick="youtube(1)" autocomplete="off">
+        <label class="btn btn-outline-danger" for="stream-1-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
 
-        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-1" value="twitch" onclick="hide(1)" autocomplete="off" checked>
-        <label class="btn btn-outline-secondary" for="channel-1-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
-
-        <input type="radio" class="btn-check" name="channel-1-option" id="channel-1-option-2" value="youtube" onclick="show(1)" autocomplete="off">
-        <label class="btn btn-outline-danger" for="channel-1-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
+        <input type="text" class="form-control mt-3" id="channel-input-1" name="ch-1" placeholder="Channel Name" required>
       </div>
-      <div class="col-6">
-        <input type="text" class="form-control mb-3" id="channel-input-2" name="channel-2" placeholder="Channel 2" required>
+      <div class="col-6" id="2">
+        <input type="radio" class="btn-check" id="stream-2-option-1" onclick="twitch(2)" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="stream-2-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
 
-        <input type="text" class="form-control mb-3" id="video-input-2" name="video-2" placeholder="Video ID" style="display: none;">
+        <input type="radio" class="btn-check" id="stream-2-option-2" onclick="youtube(2)" autocomplete="off">
+        <label class="btn btn-outline-danger" for="stream-2-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
 
-        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-1" value="twitch" onclick="hide(2)" autocomplete="off" checked>
-        <label class="btn btn-outline-secondary" for="channel-2-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
-
-        <input type="radio" class="btn-check" name="channel-2-option" id="channel-2-option-2" value="youtube" onclick="show(2)" autocomplete="off">
-        <label class="btn btn-outline-danger" for="channel-2-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
+        <input type="text" class="form-control mt-3" id="channel-input-2" name="ch-2" placeholder="Channel Name" required>
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-success fa-pull-right">Submit</button>
@@ -36,12 +31,42 @@
   </div>
 </div>
 <script>
-  function show(id) {
-    document.getElementById("video-input-"+id).style.display = "inline"
+  function youtube(id) {
+    if (!document.getElementById("video-input-" + id)) {
+      newElement = document.createElement("input")
+      newElement.type = "text"
+      newElement.classList = "form-control mt-3"
+      newElement.id = "video-input-" + id
+      newElement.name = "v-" + id
+      newElement.placeholder = "Video ID"
+      newElement.required = true
+
+      document.getElementById(id).appendChild(newElement)
+
+      document.getElementById("channel-input-" + id).remove();
+    }
+
+    document.getElementById("stream-" + id + "-option-1").checked = false
+    document.getElementById("stream-" + id + "-option-2").checked = true
   }
 
-  function hide(id) {
-    document.getElementById("video-input-"+id).style.display = "none"
+  function twitch(id) {
+    if (document.getElementById("video-input-" + id)) {
+      newElement = document.createElement("input")
+      newElement.type = "text"
+      newElement.classList = "form-control mt-3"
+      newElement.id = "channel-input-" + id
+      newElement.name = "ch-" + id
+      newElement.placeholder = "Channel Name"
+      newElement.required = true
+
+      document.getElementById(id).appendChild(newElement)
+
+      document.getElementById("video-input-" + id).remove()
+    }
+
+    document.getElementById("stream-" + id + "-option-1").checked = true
+    document.getElementById("stream-" + id + "-option-2").checked = false
   }
 </script>
 {% endblock %}

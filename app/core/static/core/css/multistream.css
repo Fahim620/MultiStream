@@ -49,7 +49,7 @@
 
 #switch-chat-wrapper {
   position: absolute;
-  top: 0;
+  top: var(--offset);
   right: 0;
   width: var(--chat-width);
   height: 3rem;
@@ -58,7 +58,6 @@
   text-align: center;
   display: none;
 }
-
 
 #current-chat {
   font-family: "Roobert", sans-serif ;

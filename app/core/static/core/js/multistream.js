@@ -22,7 +22,7 @@ function init(param, YT_API_KEY) {
             document.getElementById(streams[i]).src = "https://player.twitch.tv/?channel=" + channels[i] + "&parent=stream.feest.app&muted=true"
             document.getElementById(chats[i]).src = "https://www.twitch.tv/embed/" + channels[i] + "/chat?darkpopout&parent=stream.feest.app"
         } else if (param[i]["type"] === "youtube") {
-            channels.push(param[i]["channel"])
+            channels.push(param[i]["video"])
             document.getElementById(streams[i]).src = "https://www.youtube.com/embed/" + param[i]["video"]
             document.getElementById(chats[i]).src = "https://www.youtube.com/live_chat?dark_theme=1&v=" + param[i]["video"]
         }
@@ -38,7 +38,6 @@ function init(param, YT_API_KEY) {
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 }
 
-
 const getChannelID = (searchQuery, API_KEY) => {
     return new Promise((resolve, reject) => {
         let channelID;
@@ -52,7 +51,6 @@ const getChannelID = (searchQuery, API_KEY) => {
             .catch(error => reject(error));
     });
 };
-
 
 const getVideoID = (searchQuery, API_KEY) => {
     return new Promise((resolve, reject) => {
@@ -68,7 +66,6 @@ const getVideoID = (searchQuery, API_KEY) => {
     });
 };
 
-
 function switchChat() {
     chat = !chat
     document.getElementById(chats[+ chat]).style.display = "inline"
@@ -76,7 +73,6 @@ function switchChat() {
 
     document.getElementById("current-chat").innerText = channels[+ chat].toUpperCase()
 }
-
 
 function collapse() {
     document.querySelector('.chat').style.setProperty("display", "none")
@@ -86,7 +82,6 @@ function collapse() {
     document.getElementById("expand").style.display = "block"
 }
 
-
 function expand() {
     document.querySelector('.chat').style.setProperty("display", "inline")
     document.querySelector(':root').style.setProperty("--chat-width", "20rem")
@@ -94,7 +89,6 @@ function expand() {
     document.getElementById("switch-chat-wrapper").style.display = "inline"
     document.getElementById("expand").style.display = "none"
 }
-
 
 function toggleFullScreen() {
     if (!document.fullscreenElement) {
@@ -107,7 +101,6 @@ function toggleFullScreen() {
         document.getElementById("fullscreen-icon").classList.add("fa-expand")
     }
 }
-
 
 function toggleSecondStream() {
     if (!hidden) {
@@ -145,7 +138,6 @@ function toggleSecondStream() {
     
 }
 
-
 function swapStreams() {
     if (hidden) {
         toggleSecondStream()
@@ -173,7 +165,6 @@ function swapStreams() {
     }
 }
 
-
 function switchSideBySide() {
     layout = mode[0]
     if (!hidden) {
@@ -188,7 +179,6 @@ function switchSideBySide() {
     document.querySelector(':root').style.setProperty("--offset", "0%")
 }
 
-
 function switchStacked() {
     layout = mode[1]
     if (!hidden) {
@@ -202,7 +192,6 @@ function switchStacked() {
 
     document.querySelector(':root').style.setProperty("--offset", "0%")
 }
-
 
 function switchCostream() {
     layout = mode[2]
