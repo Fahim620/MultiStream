@@ -36,7 +36,19 @@ function init(param) {
 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    document.getElementById("chat-width").max = Math.round(((window.innerWidth / 2) / parseFloat(window.getComputedStyle(document.documentElement).fontSize)) / 5) * 5
 }
+
+window.addEventListener('resize', () => {
+    prevValue = document.getElementById("chat-width").value
+    currentMax = document.getElementById("chat-width").max = Math.round(((window.innerWidth / 2) / parseFloat(window.getComputedStyle(document.documentElement).fontSize)) / 5) * 5
+    if (prevValue > currentMax) {
+        chatWidth(currentMax)
+        document.getElementById("chat-width").value = currentMax
+        document.getElementById("chat-width-value").textContent = currentMax
+    }
+});
 
 function switchChat() {
     chat = !chat

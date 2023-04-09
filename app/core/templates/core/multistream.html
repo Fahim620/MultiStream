@@ -42,11 +42,11 @@
         <li><button class="dropdown-item" type="button" onclick="switchStacked()">Stacked</button></li>
         <li><button class="dropdown-item" type="button" onclick="switchCostream()">Co-stream</button></li>
         <li><hr class="dropdown-divider"></li>
-        <li><label for="chat-width" class="dropdown-header form-label">Chat Width</label></li>
+        <li><span class="dropdown-header">Chat Width</span></li>
         <li>
           <div class="dropdown-item d-flex">
             <input type="range" id="chat-width" class="form-range" value="20" min="20" max="50" step="5" onchange="chatWidth(this.value)" oninput="this.nextElementSibling.textContent = this.value">
-            <span class="ms-3">20</span>
+            <span id="chat-width-value" class="ms-3">20</span>
           </div>
         </li>
       </ul>
