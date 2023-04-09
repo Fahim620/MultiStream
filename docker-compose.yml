@@ -20,7 +20,6 @@ services:
       - DB_NAME=devdb
       - DB_USER=devuser
       - DB_PASS=changeme
-      - YT_API_KEY=${YT_API_KEY}
     depends_on:
       - db
 
