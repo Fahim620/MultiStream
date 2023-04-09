@@ -1,5 +1,5 @@
 const mode = ["side-by-side", "stacked", "co-stream"]
-var layout = mode[0]
+var currentMode = mode[0]
 var streams = ["stream-1", "stream-2"]
 const chats = ["chat-1", "chat-2"]
 var chat = false
@@ -38,6 +38,20 @@ function init(param) {
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
     document.getElementById("chat-width").max = Math.round(((window.innerWidth / 2) / parseFloat(window.getComputedStyle(document.documentElement).fontSize)) / 5) * 5
+    
+    if (localStorage.mode === mode[0]) {
+        switchSideBySide()
+    } else if (localStorage.mode === mode[1]) {
+        switchStacked()
+    } else if (localStorage.mode === mode[2]) {
+        switchCostream()
+    }
+
+    if (localStorage.chatWidth) {
+        chatWidth(localStorage.chatWidth)
+        document.getElementById("chat-width").value = localStorage.chatWidth
+        document.getElementById("chat-width-value").textContent = localStorage.chatWidth
+    }
 }
 
 window.addEventListener('resize', () => {
@@ -48,6 +62,11 @@ window.addEventListener('resize', () => {
         document.getElementById("chat-width").value = currentMax
         document.getElementById("chat-width-value").textContent = currentMax
     }
+});
+
+window.addEventListener('beforeunload', () => {
+    localStorage.mode = currentMode
+    localStorage.chatWidth = document.getElementById("chat-width").value
 });
 
 function switchChat() {
@@ -97,7 +116,7 @@ function toggleSecondStream() {
         document.getElementById(streams[0]).style.width = "var(--full-width)"
         document.getElementById(streams[0]).style.height = "100%"
 
-        if (layout === mode[2]) {
+        if (currentMode === mode[2]) {
             document.querySelector(':root').style.setProperty("--offset", "0%")
         }
     } else {
@@ -106,13 +125,13 @@ function toggleSecondStream() {
         document.getElementById("toggle-icon").classList.add("fa-video")
 
         document.getElementById(streams[1]).style.display = "inline"
-        if (layout === mode[0]) {
+        if (currentMode === mode[0]) {
             document.getElementById(streams[0]).style.width = "var(--half-width)"
             document.getElementById(streams[0]).style.height = "100%"
-        } else if (layout === mode[1]) {
+        } else if (currentMode === mode[1]) {
             document.getElementById(streams[0]).style.width = "var(--full-width)"
             document.getElementById(streams[0]).style.height = "50%"
-        } else if (layout === mode[2]) {
+        } else if (currentMode === mode[2]) {
             document.getElementById(streams[0]).style.width = "var(--full-width)"
             document.getElementById(streams[0]).style.height = "100%"
 
@@ -135,11 +154,11 @@ function swapStreams() {
     document.getElementById(streams[0]).style.top = "0%"
     document.getElementById(streams[0]).style.left = "0%"
 
-    if (layout === mode[0]) {
+    if (currentMode === mode[0]) {
         switchSideBySide()
-    } else if (layout === mode[1]) {
+    } else if (currentMode === mode[1]) {
         switchStacked()
-    } else if (layout === mode[2]) {
+    } else if (currentMode === mode[2]) {
         switchCostream()
     }
 
@@ -150,7 +169,7 @@ function swapStreams() {
 }
 
 function switchSideBySide() {
-    layout = mode[0]
+    currentMode = mode[0]
     if (!hidden) {
         document.getElementById(streams[0]).style.width = "var(--half-width)"
         document.getElementById(streams[0]).style.height = "100%"
@@ -164,7 +183,7 @@ function switchSideBySide() {
 }
 
 function switchStacked() {
-    layout = mode[1]
+    currentMode = mode[1]
     if (!hidden) {
         document.getElementById(streams[0]).style.width = "var(--full-width)"
         document.getElementById(streams[0]).style.height = "50%"
@@ -178,7 +197,7 @@ function switchStacked() {
 }
 
 function switchCostream() {
-    layout = mode[2]
+    currentMode = mode[2]
     document.getElementById(streams[0]).style.width = "var(--full-width)"
     document.getElementById(streams[0]).style.height = "100%"
 

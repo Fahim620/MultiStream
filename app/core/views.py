@@ -16,8 +16,6 @@ def watch(request):
     if (request.method == 'GET') and (request.GET != {}):
         streams = []
 
-        print(request.GET)
-
         for k, v in request.GET.items():
             if "yt" in k:
                 streams.append({
