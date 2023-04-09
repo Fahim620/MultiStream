@@ -82,14 +82,16 @@ function collapse() {
     document.querySelector(':root').style.setProperty("--chat-width", "0%")
     document.getElementById("collapse").style.display = "none"
     document.getElementById("switch-chat-wrapper").style.display = "none"
+    document.getElementById("switch-chat").style.display = "none"
     document.getElementById("expand").style.display = "block"
 }
 
 function expand() {
     document.querySelector('.chat').style.setProperty("display", "inline")
-    document.querySelector(':root').style.setProperty("--chat-width", "20rem")
+    document.querySelector(':root').style.setProperty("--chat-width", document.getElementById("chat-width").value + "rem")
     document.getElementById("collapse").style.display = "inline"
     document.getElementById("switch-chat-wrapper").style.display = "inline"
+    document.getElementById("switch-chat").style.display = "inline"
     document.getElementById("expand").style.display = "none"
 }
 
