@@ -11,22 +11,28 @@
     <h1 class="display-4">Multi<b>Stream</b></h1>
     <form class="row g-3" action="/watch" method="get">
       <div class="col-6" id="1">
-        <input type="radio" class="btn-check" id="stream-1-option-1" onclick="twitch(1)" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="stream-1-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
+        <input type="radio" class="btn-check" id="stream-1-option-1" onclick="option1(1)" autocomplete="off" checked>
+        <label class="btn btn-outline-primary mt-2" for="stream-1-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
 
-        <input type="radio" class="btn-check" id="stream-1-option-2" onclick="youtube(1)" autocomplete="off">
-        <label class="btn btn-outline-danger" for="stream-1-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
+        <input type="radio" class="btn-check" id="stream-1-option-3" onclick="option3(1)" autocomplete="off">
+        <label class="btn btn-outline-primary mt-2" for="stream-1-option-3"><i class="fa-brands fa-twitch"></i> VOD</label>
 
-        <input type="text" class="form-control mt-3" id="channel-input-1" name="tw-1" placeholder="Channel Name" required>
+        <input type="radio" class="btn-check" id="stream-1-option-2" onclick="option2(1)" autocomplete="off">
+        <label class="btn btn-outline-danger mt-2" for="stream-1-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
+
+        <input type="text" class="form-control mt-3" id="input-1" name="tw-1" placeholder="Channel Name" required>
       </div>
       <div class="col-6" id="2">
-        <input type="radio" class="btn-check" id="stream-2-option-1" onclick="twitch(2)" autocomplete="off" checked>
-        <label class="btn btn-outline-primary" for="stream-2-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
+        <input type="radio" class="btn-check" id="stream-2-option-1" onclick="option1(2)" autocomplete="off" checked>
+        <label class="btn btn-outline-primary mt-2" for="stream-2-option-1"><i class="fa-brands fa-twitch"></i> Twitch</label>
 
-        <input type="radio" class="btn-check" id="stream-2-option-2" onclick="youtube(2)" autocomplete="off">
-        <label class="btn btn-outline-danger" for="stream-2-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
+        <input type="radio" class="btn-check" id="stream-2-option-3" onclick="option3(2)" autocomplete="off">
+        <label class="btn btn-outline-primary mt-2" for="stream-2-option-3"><i class="fa-brands fa-twitch"></i> VOD</label>
 
-        <input type="text" class="form-control mt-3" id="channel-input-2" name="tw-2" placeholder="Channel Name" required>
+        <input type="radio" class="btn-check" id="stream-2-option-2" onclick="option2(2)" autocomplete="off">
+        <label class="btn btn-outline-danger mt-2" for="stream-2-option-2"><i class="fa-brands fa-youtube"></i> YouTube</label>
+
+        <input type="text" class="form-control mt-3" id="input-2" name="tw-2" placeholder="Channel Name" required>
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-success fa-pull-right">Submit</button>

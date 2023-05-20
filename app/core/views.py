@@ -19,14 +19,22 @@ def watch(request):
         for k, v in request.GET.items():
             if "yt" in k:
                 streams.append({
-                    "video": v,
-                    "type": "youtube"
+                    "vid": v,
+                    "platform": "youtube"
                 })
             if "tw" in k:
-                streams.append({
-                    "channel": v,
-                    "type": "twitch"
-                })
+                if "vod" in k:
+                    streams.append({
+                        "vid": v,
+                        "platform": "twitch",
+                        "type": "vod"
+                    })
+                else:
+                    streams.append({
+                        "channel": v,
+                        "platform": "twitch",
+                        "type": "stream"
+                    })
             
         context['streams'] = json.dumps(streams)
 

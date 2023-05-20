@@ -9,22 +9,22 @@ var channels = []
 
 
 function init(param) {
-    // channels.push("sideshow")
-    // channels.push("bren")
-    // document.getElementById(streams[0]).src = "https://player.twitch.tv/?video=v1772874401&parent=stream.feest.app&muted=true"
-    // document.getElementById(chats[0]).src = "https://www.twitch.tv/embed/sideshow/chat?darkpopout&parent=stream.feest.app"
-    // document.getElementById(streams[1]).src = "https://player.twitch.tv/?video=v1772874811&parent=stream.feest.app&muted=true"
-    // document.getElementById(chats[1]).src = "https://www.twitch.tv/embed/bren/chat?darkpopout&parent=stream.feest.app"
-
     for (let i=0; i<param.length; i++) {
-        if (param[i]["type"] === "twitch") {
-            channels.push(param[i]["channel"])
-            document.getElementById(streams[i]).src = "https://player.twitch.tv/?channel=" + channels[i] + "&parent=stream.feest.app"
-            document.getElementById(chats[i]).src = "https://www.twitch.tv/embed/" + channels[i] + "/chat?darkpopout&parent=stream.feest.app"
-        } else if (param[i]["type"] === "youtube") {
-            channels.push(param[i]["video"])
-            document.getElementById(streams[i]).src = "https://www.youtube.com/embed/" + param[i]["video"]
-            document.getElementById(chats[i]).src = "https://www.youtube.com/live_chat?dark_theme=1&v=" + param[i]["video"]
+        if (param[i]["platform"] === "twitch") {
+            if (param[i]["type"] === "stream") {
+                channels.push(param[i]["channel"])
+                document.getElementById(streams[i]).src = "https://player.twitch.tv/?channel=" + param[i]["channel"] + "&parent=stream.feest.app"
+                document.getElementById(chats[i]).src = "https://www.twitch.tv/embed/" + param[i]["channel"] + "/chat?darkpopout&parent=stream.feest.app"
+            }
+            else if (param[i]["type"] === "vod") {
+                channels.push(param[i]["vid"])
+                document.getElementById(streams[i]).src = "https://player.twitch.tv/?video=" + param[i]["vid"] + "&parent=stream.feest.app"
+                document.getElementById(chats[i]).src = "https://www.twitch.tv/embed/" + param[i]["vid"] + "/chat?darkpopout&parent=stream.feest.app"
+            }
+        } else if (param[i]["platform"] === "youtube") {
+            channels.push(param[i]["vid"])
+            document.getElementById(streams[i]).src = "https://www.youtube.com/embed/" + param[i]["vid"]
+            document.getElementById(chats[i]).src = "https://www.youtube.com/live_chat?dark_theme=1&v=" + param[i]["vid"]
         }
     }
 
