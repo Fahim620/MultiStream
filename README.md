@@ -1,4 +1,5 @@
-# MultiStream
+# [MultiStream](https://stream.feest.app)
+
 
 Updated version of [MultiTwitch](https://multitwitch.tv/).
 
