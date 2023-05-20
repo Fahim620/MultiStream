@@ -19,7 +19,7 @@ function init(param) {
     for (let i=0; i<param.length; i++) {
         if (param[i]["type"] === "twitch") {
             channels.push(param[i]["channel"])
-            document.getElementById(streams[i]).src = "https://player.twitch.tv/?channel=" + channels[i] + "&parent=stream.feest.app&muted=true"
+            document.getElementById(streams[i]).src = "https://player.twitch.tv/?channel=" + channels[i] + "&parent=stream.feest.app"
             document.getElementById(chats[i]).src = "https://www.twitch.tv/embed/" + channels[i] + "/chat?darkpopout&parent=stream.feest.app"
         } else if (param[i]["type"] === "youtube") {
             channels.push(param[i]["video"])
